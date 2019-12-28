@@ -1,0 +1,4 @@
+<view class="container">
+  <button bindtap="handleEventTap">{{content}}</button>
+  <text>{{latitude}}, {{longitude}}</text>
+</view>
