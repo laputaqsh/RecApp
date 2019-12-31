@@ -5,11 +5,11 @@ Page({
     searching: false,
     showSearchNone: false,
     locId: undefined,
-    locs: {},
-    uids: {},
     searchLocs: undefined,
     city: undefined,
 
+    locs: {},
+    uids: {},
     hotLocs: ["108288", "108296", "118281", "118282", "118318", "118159", "118254", "118281", "108309"],
     locList: {},
     uidList: [],
@@ -26,7 +26,7 @@ Page({
       locs: locs,
       uids: uids
     });
-    this.processCityListData();
+    this.processLocListData();
   },
   onReady: function() {
     // 页面渲染完成
@@ -47,7 +47,7 @@ Page({
     });
   },
   /** 处理城市信息 */
-  processCityListData: function() {
+  processLocListData: function() {
     // 按字母顺序排序
     var ids = Object.keys(this.data.locs);
     ids.sort();
@@ -57,7 +57,7 @@ Page({
     for (let idx in ids) {
       var id = ids[idx];
       var uid = this.data.uids[id].substring(0, 1);
-      if (!cityList[uid]) {
+      if (!locList[uid]) {
         locList[uid] = [];
         uidList.push(uid);
       }
@@ -95,8 +95,11 @@ Page({
     });
   },
   handleInput: function(event) {
+    var locList = this.data.locList;
+
     var val = event.detail.value;
     console.log("value: " + val);
+    var searchIds = [];
     var searchUids = [];
     var searchLocs = {};
     var readyData = {
@@ -104,37 +107,36 @@ Page({
       "searchLocs": searchLocs,
       "showSearchNone": false
     };
-    if (val == "") {
-      this.setData(readyData);
-      return;
-    }
 
     var ids = Object.keys(this.data.uids);
     for (let idx in ids) {
       var id = ids[idx];
       var uid = this.data.uids[id];
-      var loc = this.data.locs[id];
-      if (uid.indexOf(val) != -1 || loc.indexOf(val) != -1) {
-        searchUids[uid.substring(0, 1)] = id;
+      if (uid.indexOf(val) != -1) {
+        searchIds.push(id);
       }
     }
 
-    if (searchUids.length == 0) {
+    if (searchIds.length == 0) {
       readyData["showSearchNone"] = true;
       this.setData(readyData);
       return;
     }
-    searchUids.sort();
-    for (let idx in searchUids) {
-      var uid = searchUids[idx];
-      searchLocs[uid] = this.data.locList[uid];
+
+    for (let idx in searchIds) {
+      var id = searchIds[idx];
+      var uid = this.data.uids[id].substring(0, 1);
+      
+      if (!searchLocs[uid]) {
+        searchLocs[uid] = [];
+      }
+      searchUids.push(uid);
+      searchLocs[uid].push(id);
     }
+    searchUids.sort();
 
     readyData["searchUids"] = searchUids;
     readyData["searchLocs"] = searchLocs;
     this.setData(readyData);
-
-    console.log(searchUids);
-    console.log(searchLocs);
   }
 })

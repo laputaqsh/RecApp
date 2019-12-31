@@ -2,26 +2,23 @@ var app = getApp();
 Page({
   data: {
     locId: undefined,
-    locs: [], // 支持的所有城市
     addresses: [], // 区域
     types: [], //获取到的类别
     events: {}, // 获取到的活动
     cates: {}, // 所有活动中类别信息
+    locs: {}, // 支持的所有城市
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     if (options.latitude && options.longitude) {
       console.log("latitude: " + options.latitude + ", longitude" + options.longitude);
     }
-    //获取用户所在的城市uid
-    // if (typeof app.globalData.userInfo.city == "string") {
-    //   var cityUid = app.globalData.userInfo.city.toLowerCase();
-    //   app.globalData.cityUid = cityUid;
-    // }
     this.setData({
+      "locs": app.globalData.locs,
       "locId": app.globalData.locId,
       "cates": app.globalData.cates
     });
+    console.log(this.data.locId);
 
     // 获取当前城市的活动
     this.getEventListData();
@@ -159,7 +156,7 @@ Page({
   },
   /** 选择类型 */
   bindCategory: function(event) {
-    var param = "?locId=" + this.data.locId + "&&types" + this.data.types;
+    var param = "?locId=" + this.data.locId;
     wx.navigateTo({
       url: '/pages/discover/category/category' + param
     });
@@ -167,7 +164,6 @@ Page({
   /** 用户点击更多，选择某个特定类型的活动 */
   handleMore: function(event) {
     var type = event.currentTarget.dataset.type;
-    console.log(type);
     var param = "?locId=" + this.data.locId + "&&type=" + type;
     wx.navigateTo({
       url: '/pages/discover/category/category' + param

@@ -13,7 +13,7 @@ Page({
     dates: ["今天", "明天", "周末", "近期"],
     locas: ["东城区", "西城区", "朝阳区", "丰台区", "石景山", "海淀区", "门头沟", "房山区", "通州区", "顺义区", "昌平区", "大兴区", "怀柔区", "平谷区", "密云区", "延庆区"],
 
-    type: "all", // 当前选择的活动类型
+    type: "travel", // 当前选择的活动类型
     date: "今天", // 当前选择的活动时间
     loca: "海淀区", // 当前选择的活动区域
   },
@@ -27,13 +27,17 @@ Page({
       var type = vals[id];
       types.push(cates[type]);
       reves[cates[type]] = type;
-    }    
+    }
+    if (typeof (options.type) != "undefined") {
+      this.setData({
+        "type": options.type
+      });
+    }
 
     this.setData({
       "types": types,
       "cates": cates,
       "reves": reves,
-      "type": options.type,
       "locId": options.locId,
       "events": app.globalData.events,
       "windowWidth": app.globalData.windowWidth,

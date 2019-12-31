@@ -8,7 +8,7 @@ App({
     windowHeight: undefined,
     reflesh: false,
     eventCategory: undefined,
-    locId: 108288,
+    locId: "108288",
     types: [], //获取到的类别
     events: {}, // 获取到的活动
     cates: {}, // 所有活动中类别信息
@@ -72,9 +72,11 @@ App({
       "118146": "haerbin",
     },
     doubanBase: "http://182.92.85.86/",
+    event_limit_const: "&&start=0&&count=200",
     event_list_url: "event/list",
     event_detail_url: "event/detail",
-    event_limit_const: "&&start=0&&count=200"
+    event_recs_url: "event/recs",
+    event_hots_url: "event/hots",
   },
   onLaunch: function() {
     // Do something initial when launch.
@@ -86,23 +88,6 @@ App({
       }
     });
     this.getLocation();
-  },
-  getUserInfo: function(cb) {
-    var that = this;
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo);
-    } else {
-      wx.login({
-        success: function(res) {
-          // wx.getUserInfo({
-          //     success: function (res) {
-          //         that.globalData.userInfo = res.userInfo;
-          //         typeof cb == "function" && cb(that.globalData.userInfo);
-          //     }
-          // });
-        }
-      });
-    }
   },
   getLocation: function() {
     var that = this;

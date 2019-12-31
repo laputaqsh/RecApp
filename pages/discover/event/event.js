@@ -99,7 +99,7 @@ Page({
   },
   /** 查看图片 */
   handlePosterTap: function(event) {
-    var posterUrl = this.data.event.image;
+    var posterUrl = this.data.event.image_hlarge;
     wx.navigateTo({
       url: '/pages/discover/event/poster/poster?posterUrl=' + posterUrl
     });
