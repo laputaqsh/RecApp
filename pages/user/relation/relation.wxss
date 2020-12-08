@@ -1,0 +1,50 @@
+.container {
+  height: 100%;
+}
+
+.user-wrapper {
+  display: block;
+  background: white;
+}
+
+.user-content {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx 20rpx 20rpx 20rpx;
+  border-bottom: 1px solid #e6e6e6;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-content  .user-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+
+.user-content  .user-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 21rpx;
+  overflow: hidden;
+}
+
+.user-content .user-label {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #6e6e6e;
+  line-height: 1.5;
+}
+
+.nothing-view {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  overflow: hidden;
+}

@@ -155,10 +155,9 @@ Page({
     });
   },
   /** 选择类型 */
-  bindCategory: function(event) {
-    var param = "?locId=" + this.data.locId;
+  bindSearch: function(event) {
     wx.navigateTo({
-      url: '/pages/discover/category/category' + param
+      url: '/pages/discover/search/search'
     });
   },
   /** 用户点击更多，选择某个特定类型的活动 */

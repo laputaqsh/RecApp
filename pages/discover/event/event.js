@@ -4,14 +4,16 @@ Page({
   data: {
     extended: false,
     categoryColor: "",
-    event: {}
+    event: {},
+    hasWish: false,
+    hasJoin: false
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    var id = options.id;
-    var url = app.globalData.doubanBase + app.globalData.event_detail_url + "?id=" + id;
-    console.log(url);
-    this.getEventDatById(url);
+    var eventId = options.id;
+    this.getWishStatus(eventId);
+    this.getJoinStatus(eventId);
+    this.getEventById(eventId);
   },
   onReady: function() {
     // 页面渲染完成
@@ -25,10 +27,84 @@ Page({
   onUnload: function() {
     // 页面关闭
   },
-  /** 根据id获取活动详情 */
-  getEventDatById: function(url) {
-    console.log("getEventDataById");
+  getWishStatus: function (eventId) {
+    console.log("getWishStatus");
     var that = this;
+    if (typeof (app.globalData.userInfo) != "undefined") {
+      var url = app.globalData.doubanBase + app.globalData.user_related_url + "status?userId=" + app.globalData.userInfo.id + "&eventId=" + eventId + "&type=wisher";
+      console.log(url);
+
+      // 显示加载中
+      wx.showLoading({
+        title: '加载中',
+      });
+
+      wx.request({
+        url: url,
+        data: {},
+        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'content-type': 'json'
+        }, // 设置请求的 header
+        success: function (res) {
+          console.log(res);
+          if (res.data.code == 200) {
+            that.setData({
+              "hasWish": true,
+            });
+          }
+        },
+        fail: function () {
+          // fail
+        },
+        complete: function () {
+          wx.hideLoading();
+        }
+      });
+    }
+  },
+  getJoinStatus: function (eventId) {
+    console.log("getJoinStatus");
+    var that = this;
+    if (typeof (app.globalData.userInfo) != "undefined") {
+      var url = app.globalData.doubanBase + app.globalData.user_related_url + "status?userId=" + app.globalData.userInfo.id + "&eventId=" + eventId + "&type=participant";
+      console.log(url);
+
+      // 显示加载中
+      wx.showLoading({
+        title: '加载中',
+      });
+
+      wx.request({
+        url: url,
+        data: {},
+        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'content-type': 'json'
+        }, // 设置请求的 header
+        success: function (res) {
+          console.log(res);
+          if (res.data.code == 200) {
+            that.setData({
+              "hasJoin": true,
+            });
+          }
+        },
+        fail: function () {
+          // fail
+        },
+        complete: function () {
+          wx.hideLoading();
+        }
+      });
+    }
+  },
+  /** 根据id获取活动详情 */
+  getEventById: function(eventId) {
+    console.log("getEventById");
+    var that = this;
+    var url = app.globalData.doubanBase + app.globalData.event_detail_url + "?id=" + eventId;
+    console.log(url);
 
     // 显示加载中
     wx.showLoading({
@@ -113,7 +189,7 @@ Page({
     this.data.event.begin_time && (param += "&&endTime=" + this.data.event.end_time);
 
     console.log(param);
-    
+
     wx.navigateTo({
       url: '/pages/discover/event/schedule/schedule?' + param
     });
@@ -158,26 +234,129 @@ Page({
       }
     });
   },
-  /** 用户感兴趣 */
-  handleWish: function(event) {
+  handleWish: function() {
     console.log("handleWish");
-    var params = "action=wish";
-    this.data.event.title && (params += "&&title=" + this.data.event.title);
-    this.data.event.some_count && (params += "&&somecount=" + this.data.event.some_count);
-    wx.navigateTo({
-      url: '/pages/discover/event/action/action?' + params,
-    });
+    var ops = "insert";
+    var that = this;
+    if (typeof(app.globalData.userInfo) != "undefined") {
+      var url = app.globalData.doubanBase + app.globalData.user_related_url + ops + "?userId=" + app.globalData.userInfo.id + "&eventId=" + this.data.event.id + "&type=wisher";
+      console.log(url);
+
+      // 显示加载中
+      wx.showLoading({
+        title: '加载中',
+      });
+
+      wx.request({
+        url: url,
+        data: {},
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'content-type': 'json'
+        }, // 设置请求的 header
+        success: function(res) {
+          console.log(res);
+          if (res.data.code == 200) {
+            that.setData({
+              "hasWish": !that.data.hasWish,
+            });
+            wx.showToast({
+              title: '活动收藏成功！',
+              icon: 'success',
+            });
+          } else {
+            wx.showToast({
+              title: '您已收藏该活动！',
+              icon: 'none',
+            });
+          }
+        },
+        fail: function() {
+          
+        },
+        complete: function() {
+          wx.hideLoading();
+        }
+      });
+    } else {
+      wx.showToast({
+        title: '客官，请登录先~',
+        icon: 'none',
+      });
+    }
   },
-  /** 用户要参加 */
-  handleJoin: function(event) {
+  handleJoin: function() {
     console.log("handleJoin");
-    var params = "action=join";
-    this.data.event.title && (params += "&&title=" + this.data.event.title);
-    this.data.event.some_count && (params += "&&somecount=" + this.data.event.some_count);
-    wx.navigateTo({
-      url: '/pages/discover/event/action/action?' + params,
-    });
+    var ops = "insert";
+    var that = this;
+    if (typeof(app.globalData.userInfo) != "undefined") {
+      var url = app.globalData.doubanBase + app.globalData.user_related_url + ops + "?userId=" + app.globalData.userInfo.id + "&eventId=" + this.data.event.id + "&type=participant";
+      console.log(url);
+
+      // 显示加载中
+      wx.showLoading({
+        title: '加载中',
+      });
+
+      wx.request({
+        url: url,
+        data: {},
+        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+        header: {
+          'content-type': 'json'
+        }, // 设置请求的 header
+        success: function(res) {
+          console.log(res);
+          if (res.data.code == 200) {
+            that.setData({
+              "hasJoin": !that.data.hasJoin,
+            });
+            wx.showToast({
+              title: '活动参加成功！',
+              icon: 'success',
+            });
+          } else {
+            wx.showToast({
+              title: '您已参加该活动！',
+              icon: 'none',
+            });
+          }
+        },
+        fail: function() {
+
+        },
+        complete: function() {
+          wx.hideLoading();
+        }
+      });
+    } else {
+      wx.showToast({
+        title: '客官，请登录先~',
+        icon: 'none',
+      });
+    }
   },
+  //TODO：活动评价
+  // /** 用户感兴趣 */
+  // handleWish: function(event) {
+  //   console.log("handleWish");
+  //   var params = "action=wish";
+  //   this.data.event.title && (params += "&&title=" + this.data.event.title);
+  //   this.data.event.some_count && (params += "&&somecount=" + this.data.event.some_count);
+  //   wx.navigateTo({
+  //     url: '/pages/discover/event/action/action?' + params,
+  //   });
+  // },
+  // /** 用户要参加 */
+  // handleJoin: function(event) {
+  //   console.log("handleJoin");
+  //   var params = "action=join";
+  //   this.data.event.title && (params += "&&title=" + this.data.event.title);
+  //   this.data.event.some_count && (params += "&&somecount=" + this.data.event.some_count);
+  //   wx.navigateTo({
+  //     url: '/pages/discover/event/action/action?' + params,
+  //   });
+  // },
   bindExtend: function(event) {
     this.setData({
       "extended": true

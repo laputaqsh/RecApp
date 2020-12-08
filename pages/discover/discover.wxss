@@ -4,9 +4,7 @@
   background: #fff;
   width: 100%;
   white-space: nowrap;
-  border-width: 1px 0px 1px 0px;
-  border-style: solid;
-  border-color: #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .location-session-spacing {

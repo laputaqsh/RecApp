@@ -76,7 +76,7 @@ Page({
       delta: 1, // 回退前 delta(默认为1) 页面
       success: function(res) {
         app.globalData.reflesh = true;
-        app.globalData.locId = locId;
+        //app.globalData.locId = locId;
       }
     });
   },

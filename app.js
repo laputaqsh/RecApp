@@ -6,9 +6,25 @@ App({
     longitude: undefined,
     windowWidth: undefined,
     windowHeight: undefined,
-    reflesh: false,
     eventCategory: undefined,
-    locId: "108288",
+    doubanBase: "http://182.92.85.86/",
+    event_limit_const: "&&start=0&&count=100",
+    event_list_url: "event/list",
+    event_detail_url: "event/detail",
+    event_recs_url: "event/recs",
+    event_hots_url: "event/hots",
+    event_search_url: "event/search",
+    user_auth_url: "user/auth",
+    user_login_url: "user/login",
+    user_regist_url: "user/regist",
+    user_fols_url: "user/fols",
+    user_fans_url: "user/fans",
+    user_collects_url: "user/collects",
+    user_history_url: "user/history",
+    user_related_url: "user/related/",
+    
+    reflesh: false,
+    locId: 108288,
     types: [], //获取到的类别
     events: {}, // 获取到的活动
     cates: {}, // 所有活动中类别信息
@@ -70,13 +86,7 @@ App({
       "118183": "hefei",
       "118221": "qingdao",
       "118146": "haerbin",
-    },
-    doubanBase: "http://182.92.85.86/",
-    event_limit_const: "&&start=0&&count=200",
-    event_list_url: "event/list",
-    event_detail_url: "event/detail",
-    event_recs_url: "event/recs",
-    event_hots_url: "event/hots",
+    }
   },
   onLaunch: function() {
     // Do something initial when launch.

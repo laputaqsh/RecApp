@@ -3,25 +3,37 @@
     "pages/index/index",
     "pages/discover/discover",
     "pages/discover/event/event",
+    "pages/discover/search/search",
     "pages/discover/event/poster/poster",
     "pages/discover/event/action/action",
     "pages/discover/event/schedule/schedule",
     "pages/discover/category/category",
     "pages/discover/select-city/select-city",
-    "pages/my/my"
+    "pages/user/user",
+    "pages/user/login/login",
+    "pages/user/regist/regist",
+    "pages/user/relation/relation",
+    "pages/user/avatar/avatar",
+    "pages/user/event/event"
   ],
   "tabBar": {
     "list": [
       {
+        "selectedIconPath": "images/icon/homed.png",
+        "iconPath": "images/icon/home.png",
         "pagePath": "pages/index/index",
         "text": "首页"
       },
       {
+        "selectedIconPath": "images/icon/discovered.png",
+        "iconPath": "images/icon/discovery.png",
         "pagePath": "pages/discover/discover",
         "text": "发现"
       },
       {
-        "pagePath": "pages/my/my",
+        "selectedIconPath": "images/icon/usered.png",
+        "iconPath": "images/icon/user.png",
+        "pagePath": "pages/user/user",
         "text": "我的"
       }
     ]
@@ -29,10 +41,9 @@
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "RecApp",
+    "navigationBarTitleText": "同城活动",
     "backgroundColor": "#f8f8f8",
-    "backgroundTextStyle": "light",
-    "enablePullDownRefresh": true
+    "backgroundTextStyle": "light"
   },
   "networkTimeout": {
     "request": 10000,

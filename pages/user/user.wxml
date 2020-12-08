@@ -1,0 +1,53 @@
+<!--pages/user/index.wxml-->
+<view class="container">
+  <view wx:if="{{isLogin}}">
+    <!-- 个人信息 -->
+    <view class='infomation'>
+      <!-- 基本信息 -->
+      <view class="title">
+        <image src="{{userInfo.avatar}}" bindtap="showAvatar"></image>
+        <view class="content" bindtap="showUserInfo">
+          <view>{{userInfo.uid}}</view>
+          <view>{{userInfo.name}}</view>
+        </view>
+      </view>
+      <!-- 粉丝等 -->
+      <view class='number'>
+        <view class="nitem" bindtap="showFols">
+          <view>{{userInfo.fols}}</view>
+          <view>关注</view>
+        </view>
+        <view class="nitem" bindtap="showFans">
+          <view>{{userInfo.fans}}</view>
+          <view>粉丝</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- “我的”列表 -->
+    <view class='tinyline'></view>
+    <view class="list" bindtap='showCollects'>
+      <label class="litem">感兴趣</label>
+    </view>
+    <view class="line"></view>
+    <view class="list" bindtap='showHistory'>
+      <label class="litem">要参加</label>
+    </view>
+    <view class="bigline"></view>
+    <view class="list" bindtap='doLogout'>
+      <label class="litem">退出</label>
+    </view>
+
+  </view>
+  <view class="login-form" wx:if="{{!isLogin}}">
+    <view class='bgBox'>
+      <image class='bg' src='/images/bg.jpg'></image>
+      <image class='img' src='/images/img.jpg'></image>
+    </view>
+    <view class="unLogin">
+      <view>登录后，你的个人主页等资料</view>
+      <view>会显示在这里，展示给他人</view>
+      <button bindtap='doLogin'>登录</button>
+    </view>
+  </view>
+</view>

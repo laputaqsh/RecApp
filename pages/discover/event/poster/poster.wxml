@@ -3,6 +3,6 @@
 <view class="container">
   <view class="poster-session" style="width:{{windowWidth}}px; height:{{windowHeight}}px">
     <image class="download" src="/images/icon/download.png" catchtap="handleDownload"></image>
-    <image class="poster" style="width:{{windowWidth}}px; height:{{windowHeight}}px" src="{{posterUrl}}" bindtap="handleTap"></image>
+    <image class="poster" mode="aspectFit" src="{{posterUrl}}" bindtap="handleTap"></image>
   </view>
 </view>

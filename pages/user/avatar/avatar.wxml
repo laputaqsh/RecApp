@@ -1,0 +1,4 @@
+<view class="container" style="width:{{windowWidth}}px; height:{{windowHeight}}px">
+  <image class="download" src="/images/icon/download.png" catchtap="handleDownload"></image>
+  <image class="avatar" mode="aspectFit" src="{{avatarUrl}}" bindtap="handleTap"></image>
+</view>

@@ -1,0 +1,22 @@
+<view class="container">
+  <view wx:if="{{users.length!=0}}">
+    <scroll-view scroll-y="true" style="width:{{windowWidth}}px; height: {{windowHeight}}px">
+      <block wx:for="{{users}}" wx:for-item="user">
+        <view class="user-wrapper" bindtap="handleUserTap" data-id="{{user.id}}">
+          <view class="user-content">
+            <image class="user-avatar" src="{{user.avatar}}"></image>
+            <view class="user-summary">
+              <label class="user-label">昵称：{{user.name}}</label>
+              <label class="user-label">主页：{{user.alt}}</label>
+            </view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view wx:if="{{users.length==0}}" class="nothing-view">
+    <label>这里什么也没有！</label>
+  </view>
+
+</view>

@@ -8,8 +8,8 @@
     <text class="some-count">{{event.some_count}}</text>
   </view>
   <view class="user-action event-session-spacing">
-    <text class="wish" bindtap="handleWish">感兴趣</text>
-    <text class="join" bindtap="handleJoin">要参加</text>
+    <button class="wish" bindtap="handleWish" disabled="{{hasWish}}">感兴趣</button>
+    <button class="join" bindtap="handleJoin" disabled="{{hasJoin}}">要参加</button>
   </view>
   <view class="event-action event-session-spacing">
     <view class="event-schedule" bindtap="handleSchedule">
